@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo List</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx.org/1.7.0/htmx.min.js"></script>
+</head>
+<body>
+  <div id="todo-list">
+    <h1>Todo List</h1>
+    <ul>
+      <!-- This hx-repeat will iterate over the tasks array and render a todo item for each task -->
+      <hx-repeat each="task in tasks">
+        <li>
+          <input type="checkbox" hx-checked="task.completed" />
+          <label>{{ task.name }}</label>
+          <button hx-delete="http://localhost:8000/api/tasks/{{ task.id }}">Delete</button>
+        </li>
+      </hx-repeat>
+    </ul>
+    <form hx-post="http://localhost:8000/api/tasks">
+      <input type="text" placeholder="Enter a new task" hx-model="taskName" />
+      <button type="submit">Add Task</button>
+    </form>
+  </div>
+</body>
+</html>
